@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Generator</title>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"
+    ></script>
+  </head>
+  <body>
+    <h1>QR Code Generator</h1>
+    <div>
+      <form id="qrForm">
+        <label for="textInput">Enter text:</label>
+        <input type="text" id="textInput" name="text" />
+        <button type="submit">Generate QR Code</button>
+      </form>
+    </div>
+    <div id="qrcode"></div>
+
+    <script>
+      document
+        .getElementById("qrForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          generateQR();
+        });
+
+      function generateQR() {
+        var text = document.getElementById("textInput").value;
+        if (text.trim() === "") {
+          alert("Please enter some text.");
+          return;
+        }
+
+        var qrImage = document.getElementById("qrcode");
+        qrImage.innerHTML = ""; // Clear previous QR code, if any
+
+        var img = document.createElement("img");
+        img.src = `/generate?text=${encodeURIComponent(text)}`;
+        qrImage.appendChild(img);
+      }
+    </script>
+  </body>
+</html>
